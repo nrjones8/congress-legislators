@@ -39,7 +39,7 @@ def generate_terms(source_yaml_file):
                 'end_date': end_of_term,
             })
 
-    write_leg_terms(all_leg_terms)
+    return all_leg_terms
     
 
 def write_leg_terms(list_of_term_dicts):
@@ -52,7 +52,13 @@ def write_leg_terms(list_of_term_dicts):
             writer.writerow(term)
 
     print('Finished writing out to ../terms_served.csv')
-        
+
+def main():
+    term_data = []
+    for yaml_file in yamls:
+        term_data.extend(generate_terms(yaml_file))
+
+    write_leg_terms(term_data)
 
 if __name__ == '__main__':
-    generate_terms(yamls[1])
+    main()
